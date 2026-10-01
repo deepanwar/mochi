@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.mochi-buddy"
+          path="/org/gnome/shell/extensions/mochi-buddy/">
+
+    <!-- Daily routine -->
+    <key name="lunch-enabled" type="b">
+      <default>true</default>
+      <summary>Remind me about lunch</summary>
+    </key>
+    <key name="lunch-time" type="s">
+      <default>'13:00'</default>
+      <summary>Lunch time (24-hour HH:MM)</summary>
+    </key>
+    <key name="checkout-enabled" type="b">
+      <default>true</default>
+      <summary>Remind me to check out</summary>
+    </key>
+    <key name="checkout-time" type="s">
+      <default>'18:00'</default>
+      <summary>Checkout time (24-hour HH:MM)</summary>
+    </key>
+    <key name="workdays" type="ai">
+      <default>[1, 2, 3, 4, 5]</default>
+      <summary>Workdays</summary>
+      <description>Days of the week Mochi is on duty. 0 = Sunday, 6 = Saturday.</description>
+    </key>
+
+    <!-- Custom reminders -->
+    <key name="custom-reminders" type="s">
+      <default>'[]'</default>
+      <summary>Custom reminders (JSON)</summary>
+      <description>A JSON list of reminders. See docs/settings.md for the shape.</description>
+    </key>
+
+    <!-- Manners -->
+    <key name="play-sound" type="b">
+      <default>true</default>
+      <summary>Play a soft sound when a reminder pops up</summary>
+    </key>
+    <key name="snooze-minutes" type="i">
+      <range min="1" max="120"/>
+      <default>10</default>
+      <summary>Snooze length in minutes</summary>
+    </key>
+    <key name="heads-up" type="b">
+      <default>true</default>
+      <summary>Wiggle 5 minutes before a reminder</summary>
+    </key>
+
+    <!-- Developer -->
+    <key name="test-reminder" type="i">
+      <default>0</default>
+      <summary>Bump this number to show a test reminder</summary>
+    </key>
+  </schema>
+</schemalist>

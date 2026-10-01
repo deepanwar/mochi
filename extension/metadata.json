@@ -1,0 +1,8 @@
+{
+  "uuid": "mochi-buddy@local",
+  "name": "Mochi Buddy",
+  "description": "A tiny desktop buddy in the bottom-left corner. Mochi reminds you about lunch, checkout time, and anything else you add.",
+  "shell-version": ["45", "46", "47", "48", "49", "50", "51"],
+  "settings-schema": "org.gnome.shell.extensions.mochi-buddy",
+  "version-name": "0.1.0"
+}

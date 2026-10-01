@@ -1,0 +1,207 @@
+/*
+ * Mochi Buddy styles. GNOME Shell uses its own CSS engine (St), which
+ * supports a subset of web CSS. See docs/design.md for the palette.
+ *
+ * Palette
+ *   ink      #141416  pill and card background
+ *   surface  #232326  secondary buttons
+ *   text     #F2EFEA
+ *   muted    #A8A39C
+ *   peach    #FFB86B  accent, primary buttons, badge
+ *   lavender #B9A6FF  evening accent (checkout)
+ */
+
+/* ---- The pill ---------------------------------------------------------- */
+
+.mochi-pill {
+    font-family: Ubuntu, Cantarell, sans-serif;
+    color: #F2EFEA;
+    border-radius: 24px;
+    spacing: 12px;
+}
+
+.mochi-pill.collapsed {
+    background-color: transparent;
+    padding: 0;
+}
+
+.mochi-pill.expanded {
+    background-color: #141416;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    padding: 4px 6px 4px 4px;
+}
+
+.mochi-mascot-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: transparent;
+    transition-duration: 150ms;
+}
+
+.mochi-pill.expanded .mochi-mascot-button {
+    background-color: #2A2219;
+}
+
+.mochi-mascot-button:hover {
+    background-color: rgba(255, 184, 107, 0.14);
+}
+
+.mochi-mascot-button:focus {
+    box-shadow: inset 0 0 0 2px #FFB86B;
+}
+
+.mochi-badge {
+    width: 9px;
+    height: 9px;
+    border-radius: 6px;
+    background-color: #FFB86B;
+    border: 2px solid #2A2A2D;
+    margin: 3px;
+}
+
+.mochi-pill-extras {
+    spacing: 12px;
+}
+
+.mochi-next {
+    spacing: 1px;
+}
+
+.mochi-eyebrow {
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #A8A39C;
+}
+
+.mochi-next-title {
+    font-size: 14px;
+    font-weight: 500;
+    max-width: 280px;
+}
+
+.mochi-chip {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background-color: rgba(255, 184, 107, 0.15);
+    color: #FFC48A;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.mochi-divider {
+    width: 1px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.mochi-icon-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    color: #CFCAC3;
+    background-color: transparent;
+    transition-duration: 150ms;
+}
+
+.mochi-icon-button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #F2EFEA;
+}
+
+.mochi-icon-button:focus {
+    box-shadow: inset 0 0 0 2px #FFB86B;
+}
+
+/* ---- The reminder card ------------------------------------------------- */
+
+.mochi-card {
+    font-family: Ubuntu, Cantarell, sans-serif;
+    color: #F2EFEA;
+    width: 384px;
+    padding: 18px;
+    spacing: 16px;
+    border-radius: 22px;
+    background-color: #141416;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.mochi-card-top {
+    spacing: 14px;
+}
+
+.mochi-card-tile {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background-color: #2A2219;
+}
+
+.mochi-card-tile.evening {
+    background-color: #24203A;
+}
+
+.mochi-card-words {
+    spacing: 4px;
+}
+
+.mochi-card-meta {
+    font-size: 12px;
+    color: #A8A39C;
+}
+
+.mochi-card-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.mochi-card-body {
+    font-size: 14px;
+    color: #CFCAC3;
+}
+
+.mochi-card-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    color: #A8A39C;
+}
+
+.mochi-card-actions {
+    spacing: 10px;
+}
+
+.mochi-btn {
+    height: 44px;
+    border-radius: 14px;
+    font-size: 14px;
+    transition-duration: 150ms;
+}
+
+.mochi-btn-primary {
+    background-color: #FFB86B;
+    color: #1F1408;
+    font-weight: bold;
+}
+
+.mochi-btn-primary:hover {
+    background-color: #FFC88E;
+}
+
+.mochi-btn-secondary {
+    background-color: #232326;
+    color: #F2EFEA;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    font-weight: 500;
+}
+
+.mochi-btn-secondary:hover {
+    background-color: #2C2C30;
+}
+
+.mochi-btn:focus {
+    box-shadow: inset 0 0 0 2px #F2EFEA;
+}
