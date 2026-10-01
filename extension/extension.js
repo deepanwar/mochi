@@ -36,9 +36,18 @@ export default class MochiBuddyExtension extends Extension {
         this._pill = new MochiPill(icons);
         this._card = new MochiAlertCard(icons);
 
-        const chrome = {affectsInputRegion: true, trackFullscreen: true};
-        Main.layoutManager.addChrome(this._card, chrome);
-        Main.layoutManager.addChrome(this._pill, chrome);
+        // GNOME 50 dropped affectsInputRegion. Older shells already default it
+        // to true, so clicks still land on Mochi. trackFullscreen hides Mochi
+        // while an app is full screen.
+        //
+        // The card must not use trackFullscreen. Shell then forces the actor
+        // visible whenever the monitor is not full screen, so the empty card
+        // (no title, no buttons) sits on screen before any reminder. The card
+        // starts hidden and only present() shows it. Full screen is handled
+        // in _syncCardVisibility().
+        Main.layoutManager.addChrome(this._pill, {trackFullscreen: true});
+        Main.layoutManager.addChrome(this._card);
+        this._card.hide();
 
         this._pill.connect('toggled', () => this._setExpanded(!this._pill.expanded));
         this._pill.connect('settings-clicked', () => {
@@ -55,6 +64,7 @@ export default class MochiBuddyExtension extends Extension {
         this._settingsId = this._settings.connect('changed', (_s, key) => this._onSettingChanged(key));
         this._clockId = this._interface.connect('changed::clock-format', () => this._refresh());
         this._monitorsId = Main.layoutManager.connect('monitors-changed', () => this._reposition());
+        this._fullscreenId = global.display.connect('in-fullscreen-changed', () => this._syncCardVisibility());
 
         this._timerId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, TICK_SECONDS, () => {
             this._tick();
@@ -73,6 +83,10 @@ export default class MochiBuddyExtension extends Extension {
         if (this._monitorsId) {
             Main.layoutManager.disconnect(this._monitorsId);
             this._monitorsId = null;
+        }
+        if (this._fullscreenId) {
+            global.display.disconnect(this._fullscreenId);
+            this._fullscreenId = null;
         }
         this._interface?.disconnect(this._clockId);
         this._settings?.disconnect(this._settingsId);
@@ -156,6 +170,7 @@ export default class MochiBuddyExtension extends Extension {
 
         const copy = alertCopy(this._current, this._config().snoozeMinutes, this._use24h);
         this._card.present(copy);
+        this._syncCardVisibility();
         this._playSound();
         this._refresh();
         this._reposition();
@@ -220,5 +235,28 @@ export default class MochiBuddyExtension extends Extension {
         const [, cardWidth] = this._card.get_preferred_width(-1);
         const [, cardHeight] = this._card.get_preferred_height(cardWidth);
         this._card.set_position(monitor.x + MARGIN, Math.round(pillY - cardHeight - CARD_GAP));
+    }
+
+    // Hide an open reminder while the primary monitor is full screen, then
+    // show that same card again when full screen ends. No reminder: leave
+    // the card hidden (dismiss() owns its close animation).
+    _syncCardVisibility() {
+        if (!this._card || !this._current)
+            return;
+        const fullscreen = Boolean(Main.layoutManager.primaryMonitor?.inFullscreen);
+        if (!fullscreen) {
+            if (!this._card.visible) {
+                this._card.opacity = 255;
+                this._card.scale_x = 1;
+                this._card.scale_y = 1;
+                this._card.show();
+            }
+            return;
+        }
+        this._card.remove_all_transitions();
+        this._card.hide();
+        this._card.opacity = 255;
+        this._card.scale_x = 1;
+        this._card.scale_y = 1;
     }
 }
